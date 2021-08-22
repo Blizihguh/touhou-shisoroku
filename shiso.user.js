@@ -81,12 +81,9 @@ function replace_all_cards() {
 	}
 	//TODO: Give the card image div the corresponding glow from full-card-border's color style
 	//TODO: Replace card image on right click
-
-	// Replace card backs
-	// card_divs = document.getElementsByClassName("full-card-template");
-	// for (var i=0; i<card_divs.length; i++) {
-	// 	card_divs[i].style.backgroundImage = "url('https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/Card%20Back.png')";
-	// }
+	//TODO: Replace card backs
+	//TODO: Fix cards sometimes not updating after animations (eg when buying with multiple buys, when playing treasures that don't stack)
+	//TODO: Fix opponents' cards just being totally fucked up
 }
 
 function foo() {}
