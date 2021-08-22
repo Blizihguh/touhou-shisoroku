@@ -32,7 +32,7 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 		// Replace full card art
 		card_divs = document.getElementsByClassName("full-card-art");
 		for (var i=0; i<card_divs.length; i++) {
-			card_divs[i].style.backgroundImage = "url('https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/Festival.png')";
+			//card_divs[i].style.backgroundImage = "url('https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/Festival.png')";
 		}
 
 		// Replace landscape art
