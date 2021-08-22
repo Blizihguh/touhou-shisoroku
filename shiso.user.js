@@ -18,12 +18,35 @@ GM_addStyle(`
     {
     	width: 120% !important;
     	background-size: contain !important;
+    	visibility: visible !important;
+    	border: 16px solid rbga(0, 0, 0, 1);
+    	border-style: solid;
+    	border-radius: 16px;
     }
     .full-card-text-container
     {
     	visibility: hidden;
     }
+    .full-card
+    {
+    	border-style: none !important;
+    	border-radius: 0px;
+    }
 `);
+
+function getSiblingBySelector(elem, selector) {
+
+	// Get the next sibling element
+	var sibling = elem.nextElementSibling;
+
+	// If the sibling matches our selector, use it
+	// If not, jump to the next sibling and continue the loop
+	while (sibling) {
+		if (sibling.matches(selector)) return sibling;
+		sibling = sibling.nextElementSibling
+	}
+
+}
 
 function get_new_mini_art(str) {
 	let regex = /art\/(.+)\/(.+).jpg/;
@@ -48,8 +71,16 @@ function replace_all_cards() {
 	card_divs = document.getElementsByClassName("full-card-art");
 	for (var i=0; i<card_divs.length; i++) {
 		card_divs[i].previousElementSibling.style.backgroundImage = get_new_full_art(card_divs[i].style.backgroundImage);
+		// Make card types, name, and cost invisible
+		getSiblingBySelector(card_divs[i], ".bottom-bar-full").style.visibility = "hidden";
+		getSiblingBySelector(card_divs[i], ".full-card-name-container").style.visibility = "hidden";
+		// If the card is a treasure, make its coin production invisible as well
+		let treasureBar = getSiblingBySelector(card_divs[i], ".treasure-production-container")
+		if (treasureBar) { treasureBar.style.visibility = "hidden"; }
+
 	}
-	//TODO: Make the corresponding "full-card-border" div invisible, and give the card image div the corresponding glow from full-card-border's color style
+	//TODO: Give the card image div the corresponding glow from full-card-border's color style
+	//TODO: Replace card image on right click
 
 	// Replace card backs
 	// card_divs = document.getElementsByClassName("full-card-template");
