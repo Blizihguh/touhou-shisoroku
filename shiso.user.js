@@ -30,7 +30,7 @@ GM_addStyle(`
 	.full-card
 	{
 		border-style: none !important;
-		border-radius: 0px;
+		border-radius: 16px;
 	}
 `);
 
@@ -71,6 +71,11 @@ function replace_card_study() {
 		var card_url = getSiblingBySelector(study_card, ".full-card-art").style.backgroundImage;
 		// Replace image
 		study_card.style.backgroundImage = get_new_full_art(card_url);
+		// Make overlay text invisible
+		getSiblingBySelector(study_card, ".full-card-name-container").style.visibility = "hidden";
+		getSiblingBySelector(study_card, ".bottom-bar-full").style.visibility = "hidden";
+		let treasureBar = getSiblingBySelector(study_card, ".treasure-production-container");
+		if (treasureBar) { treasureBar.style.visibility = "hidden"; }
 		// Exit from observer
 		me.disconnect();
 		return;
@@ -102,7 +107,7 @@ function replace_all_cards() {
 	//TODO: Fix cards only having rounded corners on the left and not on the right...?
 	//TODO: Give the card image div the corresponding glow from full-card-border's color style
 	//TODO: Council Room doesn't work on right click?
-	//TODO: Remove card text on right click
+	//TODO: Replace card names
 	//TODO: Replace card backs
 	//TODO: Fix cards sometimes not updating after animations (eg when buying with multiple buys, when playing treasures that don't stack)
 	//TODO: Fix opponents' cards just being totally fucked up
