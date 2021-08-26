@@ -85,6 +85,16 @@ function replace_card_study() {
 	observer.observe(document, {childList: true, subtree: true});
 }
 
+function replace_played_cards() {
+	// Find the most recently played card
+	var played_cards = document.getElementsByClassName("play-stacks");
+	var new_card = played_cards[played_cards.length-1];
+	if (new_card) {
+		var art_div = new_card.getElementsByClassName("full-card-art")[0];
+		art_div.previousElementSibling.style.backgroundImage = get_new_full_art(art_div.style.backgroundImage);
+	}
+}
+
 function replace_all_cards() {
 	// Replace mini card art
 	var card_divs = document.getElementsByClassName("mini-card-art");
@@ -109,7 +119,7 @@ function replace_all_cards() {
 	//TODO: Council Room doesn't work on right click?
 	//TODO: Replace card names
 	//TODO: Replace card backs
-	//TODO: Fix cards sometimes not updating after animations (eg when buying with multiple buys, when playing treasures that don't stack)
+	//TODO: Replace stack animations (if possible)
 	//TODO: Fix opponents' cards just being totally fucked up
 }
 
@@ -124,5 +134,6 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 	rootScope.$on(Events.CARD_STUDY_REQUEST, replace_card_study);
 	rootScope.$on(Events.LANDMARK_STUDY_REQUEST, foo);
 	rootScope.$on(Events.EVENT_STUDY_REQUEST, foo);
-	rootScope.$on(Events.HAND_UPDATE, replace_all_cards);
+	rootScope.$on(Events.HAND_UPDATE, replace_all_cards); //TODO: This is probably overkill
+	rootScope.$on(Events.PLAY_UPDATE, replace_played_cards);
 }]);
