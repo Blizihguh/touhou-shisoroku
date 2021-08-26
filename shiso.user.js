@@ -95,6 +95,20 @@ function replace_played_cards() {
 	}
 }
 
+function replace_hand_cards() {
+	var hand_divs = document.getElementsByClassName("my-visible-hand");
+	for (var i=0; i<hand_divs.length; i++) {
+		var art = hand_divs[i].getElementsByClassName("full-card-art")[0];
+		art.previousElementSibling.style.backgroundImage = get_new_full_art(art.style.backgroundImage);
+		// Make card types, name, and cost invisible
+		getSiblingBySelector(art, ".bottom-bar-full").style.visibility = "hidden";
+		getSiblingBySelector(art, ".full-card-name-container").style.visibility = "hidden";
+		// If the card is a treasure, make its coin production invisible as well
+		let treasureBar = getSiblingBySelector(art, ".treasure-production-container")
+		if (treasureBar) { treasureBar.style.visibility = "hidden"; }
+	}
+}
+
 function replace_all_cards() {
 	// Replace mini card art
 	var card_divs = document.getElementsByClassName("mini-card-art");
@@ -103,17 +117,7 @@ function replace_all_cards() {
 	}
 
 	// Replace full card art
-	card_divs = document.getElementsByClassName("full-card-art");
-	for (var i=0; i<card_divs.length; i++) {
-		card_divs[i].previousElementSibling.style.backgroundImage = get_new_full_art(card_divs[i].style.backgroundImage);
-		// Make card types, name, and cost invisible
-		getSiblingBySelector(card_divs[i], ".bottom-bar-full").style.visibility = "hidden";
-		getSiblingBySelector(card_divs[i], ".full-card-name-container").style.visibility = "hidden";
-		// If the card is a treasure, make its coin production invisible as well
-		let treasureBar = getSiblingBySelector(card_divs[i], ".treasure-production-container")
-		if (treasureBar) { treasureBar.style.visibility = "hidden"; }
-
-	}
+	replace_hand_cards();
 	//TODO: Fix cards only having rounded corners on the left and not on the right...?
 	//TODO: Give the card image div the corresponding glow from full-card-border's color style
 	//TODO: Council Room doesn't work on right click?
@@ -121,6 +125,8 @@ function replace_all_cards() {
 	//TODO: Replace card backs
 	//TODO: Replace stack animations (if possible)
 	//TODO: Fix opponents' cards just being totally fucked up
+	//TODO: Replace gained cards (do Workshop gains count as purchase events?)
+	//TODO: Gold, specifically, seems to have the treasure bar info appear when in play???
 }
 
 function foo() {}
@@ -134,6 +140,6 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 	rootScope.$on(Events.CARD_STUDY_REQUEST, replace_card_study);
 	rootScope.$on(Events.LANDMARK_STUDY_REQUEST, foo);
 	rootScope.$on(Events.EVENT_STUDY_REQUEST, foo);
-	rootScope.$on(Events.HAND_UPDATE, replace_all_cards); //TODO: This is probably overkill
+	rootScope.$on(Events.HAND_UPDATE, replace_hand_cards); //TODO: This is probably overkill
 	rootScope.$on(Events.PLAY_UPDATE, replace_played_cards);
 }]);
