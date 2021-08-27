@@ -109,6 +109,11 @@ function replace_hand_cards() {
 	}
 }
 
+function replace_card_backs() {
+	var deck = document.querySelector(".hero-info > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)");
+	deck.style.backgroundImage = "url(https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/back.png)";
+}
+
 function replace_all_cards() {
 	// Replace mini card art
 	var card_divs = document.getElementsByClassName("mini-card-art");
@@ -118,6 +123,7 @@ function replace_all_cards() {
 
 	// Replace full card art
 	replace_hand_cards();
+	replace_card_backs();
 	//TODO: Fix cards only having rounded corners on the left and not on the right...?
 	//TODO: Give the card image div the corresponding glow from full-card-border's color style
 	//TODO: Council Room doesn't work on right click?
@@ -126,7 +132,8 @@ function replace_all_cards() {
 	//TODO: Replace stack animations (if possible)
 	//TODO: Fix opponents' cards just being totally fucked up
 	//TODO: Replace gained cards (do Workshop gains count as purchase events?)
-	//TODO: Gold, specifically, seems to have the treasure bar info appear when in play???
+	//TODO: Replace discards (I thought this was already done?)
+	//TODO: Fix played cards having name/cost/treasurebar overlays
 }
 
 function foo() {}
