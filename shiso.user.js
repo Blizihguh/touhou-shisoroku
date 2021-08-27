@@ -92,6 +92,10 @@ function replace_played_cards() {
 	if (new_card) {
 		var art_div = new_card.getElementsByClassName("full-card-art")[0];
 		art_div.previousElementSibling.style.backgroundImage = get_new_full_art(art_div.style.backgroundImage);
+		getSiblingBySelector(art_div, ".bottom-bar-full").style.visibility = "hidden";
+		getSiblingBySelector(art_div, ".full-card-name-container").style.visibility = "hidden";
+		let treasureBar = getSiblingBySelector(art_div, ".treasure-production-container")
+		if (treasureBar) { treasureBar.style.visibility = "hidden"; }
 	}
 }
 
@@ -110,11 +114,12 @@ function replace_hand_cards() {
 }
 
 function replace_card_backs() {
+	// The deck div has nothing uniquely identifying it other than being the 1st child of the 1st child of the 3rd child of the hero-info div... ;_;
 	var deck = document.querySelector(".hero-info > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)");
 	deck.style.backgroundImage = "url(https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/back.png)";
 }
 
-function replace_all_cards() {
+function initialize_cards() {
 	// Replace mini card art
 	var card_divs = document.getElementsByClassName("mini-card-art");
 	for (var i=0; i<card_divs.length; i++) {
@@ -124,29 +129,55 @@ function replace_all_cards() {
 	// Replace full card art
 	replace_hand_cards();
 	replace_card_backs();
-	//TODO: Fix cards only having rounded corners on the left and not on the right...?
-	//TODO: Give the card image div the corresponding glow from full-card-border's color style
-	//TODO: Council Room doesn't work on right click?
-	//TODO: Replace card names
-	//TODO: Replace card backs
-	//TODO: Replace stack animations (if possible)
-	//TODO: Fix opponents' cards just being totally fucked up
-	//TODO: Replace gained cards (do Workshop gains count as purchase events?)
-	//TODO: Replace discards (I thought this was already done?)
-	//TODO: Fix played cards having name/cost/treasurebar overlays
 }
 
-function foo() {}
+function game_update() {
+	// If the top of our discard has changed, change it
+	// (Yes, and you call it opponent-discard-wrapper, despite the fact it is obviously ours...)
+	var discard = document.querySelector("hero-discard > .opponent-discard-wrapper > .full-card > .full-card-template");
+	if (discard) {
+		// If it's already our image, it'll start with https://; if it's not, it'll start with images/
+		if (discard.style.backgroundImage[5] != "h") {
+			discard.style.backgroundImage = get_new_full_art(discard.nextElementSibling.style.backgroundImage);
+			console.log(discard.style.backgroundImage);
+		}
+	}
+}
+
+// Opponent cards
+	//TODO: Stop opponent cards from getting fucked up
+	//TODO: Opponent card backs
+	//TODO: Opponent discard
+	//TODO: Opponent gains
+	//TODO: Opponent played cards
+
+// Player cards
+	//TODO: Replace gained cards
+	//TODO: Give cards rounded corners on the right
+	//TODO: Cards should have a green glow if they're playable, black otherwise (this can be found in full-card-border's color style)
+
+// Mini cards
+	//TODO: Replace card names (optionally?)
+
+// General fixes
+	//TODO: Council Room doesn't work on right click
+	//TODO: Animations still show vanilla cards
+	//TODO: Replacing all hand cards on every hand update is probably overkill
 
 angular.element(document.body).injector().invoke(['$rootScope', function(rootScope) {
-	rootScope.$on(Events.GAME_PAGE_LOADED, function (info) {
-		console.log(Events);
-		replace_all_cards();
-	});
 
+	rootScope.$on(Events.GAME_PAGE_LOADED, initialize_cards);
 	rootScope.$on(Events.CARD_STUDY_REQUEST, replace_card_study);
-	rootScope.$on(Events.LANDMARK_STUDY_REQUEST, foo);
-	rootScope.$on(Events.EVENT_STUDY_REQUEST, foo);
-	rootScope.$on(Events.HAND_UPDATE, replace_hand_cards); //TODO: This is probably overkill
+	rootScope.$on(Events.HAND_UPDATE, replace_hand_cards);
 	rootScope.$on(Events.PLAY_UPDATE, replace_played_cards);
+	rootScope.$on(Events.GAME_STATE_CHANGE, game_update);
+
+	//GAME_STATE_CHANGE
+	//CARD_MOVE
+	//PILE_UPDATE
+	//REVEAL_UPDATE
+	//OPPONENT_HAND_UPDATE
+	//TRASH_ZONE_UPDATED
+	//LANDMARK_STUDY_REQUEST
+	//EVENT_STUDY_REQUEST
 }]);
