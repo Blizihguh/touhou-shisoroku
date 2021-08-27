@@ -160,7 +160,6 @@ function game_update() {
 	//TODO: Replace card names (optionally?)
 
 // General fixes
-	//TODO: Council Room doesn't work on right click
 	//TODO: Animations still show vanilla cards
 	//TODO: Replacing all hand cards on every hand update is probably overkill
 
@@ -172,7 +171,6 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 	rootScope.$on(Events.PLAY_UPDATE, replace_played_cards);
 	rootScope.$on(Events.GAME_STATE_CHANGE, game_update);
 
-	//GAME_STATE_CHANGE
 	//CARD_MOVE
 	//PILE_UPDATE
 	//REVEAL_UPDATE
