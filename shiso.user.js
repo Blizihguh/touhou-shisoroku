@@ -16,7 +16,8 @@ GM_addStyle(`
 	}
 	.game-page .full-card-template
 	{
-		width: 120% !important;
+		height: 100% !important;
+		width: 115% !important;
 		background-size: contain !important;
 		visibility: visible !important;
 		border: 16px solid rbga(0, 0, 0, 1);
@@ -162,7 +163,6 @@ function foo() {
 
 // Player cards
 	//TODO: Find a better way to replace cards in discard
-	//TODO: Give cards rounded corners on the right
 	//TODO: Cards should have a green glow if they're playable, black otherwise (this can be found in full-card-border's color style)
 
 // Mini cards
