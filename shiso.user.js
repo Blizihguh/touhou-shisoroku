@@ -129,9 +129,10 @@ function initialize_cards() {
 	// Replace full card art
 	replace_hand_cards();
 	replace_card_backs();
+	replace_discard();
 }
 
-function game_update() {
+function replace_discard() {
 	// If the top of our discard has changed, change it
 	// (Yes, and you call it opponent-discard-wrapper, despite the fact it is obviously ours...)
 	var discard = document.querySelector("hero-discard > .opponent-discard-wrapper > .full-card > .full-card-template");
@@ -139,9 +140,17 @@ function game_update() {
 		// If it's already our image, it'll start with https://; if it's not, it'll start with images/
 		if (discard.style.backgroundImage[5] != "h") {
 			discard.style.backgroundImage = get_new_full_art(discard.nextElementSibling.style.backgroundImage);
-			console.log(discard.style.backgroundImage);
+			getSiblingBySelector(discard, ".bottom-bar-full").style.visibility = "hidden";
+			getSiblingBySelector(discard, ".full-card-name-container").style.visibility = "hidden";
+			// If the card is a treasure, make its coin production invisible as well
+			let treasureBar = getSiblingBySelector(discard, ".treasure-production-container")
+			if (treasureBar) { treasureBar.style.visibility = "hidden"; }
 		}
 	}
+}
+
+function foo() {
+	console.log("PILE UPDATE!");
 }
 
 // Opponent cards
@@ -152,7 +161,7 @@ function game_update() {
 	//TODO: Opponent played cards
 
 // Player cards
-	//TODO: Replace gained cards
+	//TODO: Find a better way to replace cards in discard
 	//TODO: Give cards rounded corners on the right
 	//TODO: Cards should have a green glow if they're playable, black otherwise (this can be found in full-card-border's color style)
 
@@ -169,7 +178,6 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 	rootScope.$on(Events.CARD_STUDY_REQUEST, replace_card_study);
 	rootScope.$on(Events.HAND_UPDATE, replace_hand_cards);
 	rootScope.$on(Events.PLAY_UPDATE, replace_played_cards);
-	rootScope.$on(Events.GAME_STATE_CHANGE, game_update);
 
 	//CARD_MOVE
 	//PILE_UPDATE
@@ -178,4 +186,7 @@ angular.element(document.body).injector().invoke(['$rootScope', function(rootSco
 	//TRASH_ZONE_UPDATED
 	//LANDMARK_STUDY_REQUEST
 	//EVENT_STUDY_REQUEST
+	//GAME_STATE_CHANGE
 }]);
+
+setInterval(replace_discard, 100); // No better way to do this afaik
