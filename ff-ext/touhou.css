@@ -1,0 +1,41 @@
+/* Don't display annotations over full card art (eg in hands, in play, etc) */
+.full-card-template {
+	visibility: hidden;
+}
+
+.full-card > div > .full-card-name-container {
+	visibility: hidden;
+}
+
+.full-card > div > .full-card-text-container {
+	visibility: hidden;
+}
+
+.full-card > div > .bottom-bar-full {
+	visibility: hidden;
+}
+
+.full-card > div > .treasure-production-container {
+	visibility: hidden;
+}
+
+/*TODO: This makes facedown cards invisible */
+/*TODO: Something makes card stack numbers invisible*/
+/*TODO: Something is making playable cards highlight green on hover??? */
+.full-card {
+	visibility: hidden;
+	box-shadow: none;
+}
+
+/* Display full card art */
+.full-card-art {
+	top: 0% !important;
+	left: 0% !important;
+	height: 110% !important;
+	width: 110% !important;
+	background-size: contain;
+	visibility: visible !important;
+	border: 16px solid rbga(0, 0, 0, 1);
+	border-style: solid;
+	border-radius: 16px !important;
+}

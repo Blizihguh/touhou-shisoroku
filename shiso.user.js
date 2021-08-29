@@ -16,13 +16,19 @@ GM_addStyle(`
 	}
 	.game-page .full-card-template
 	{
-		height: 100% !important;
-		width: 115% !important;
-		background-size: contain !important;
+		height: 100%;
+		width: 115%;
+		background-size: contain;
 		visibility: visible !important;
 		border: 16px solid rbga(0, 0, 0, 1);
 		border-style: solid;
 		border-radius: 16px;
+	}
+	.opponent-view .full-card-template
+	{
+		height: 100%;
+		width: 100%;
+		background-size: cover !important;
 	}
 	.full-card-text-container
 	{
@@ -150,16 +156,15 @@ function replace_discard() {
 	}
 }
 
-function foo() {
-	console.log("PILE UPDATE!");
+function replace_opponent_backs() {
+	//Hand: .opponent-hand > div:nth-child(1) > .full-card-template
+	//Deck: .opponent-deck > .full-card-template
 }
 
 // Opponent cards
-	//TODO: Stop opponent cards from getting fucked up
-	//TODO: Opponent card backs
-	//TODO: Opponent discard
-	//TODO: Opponent gains
-	//TODO: Opponent played cards
+	//TODO: Stop opponent discard from getting fucked up
+	//TODO: Replace opponent card backs
+	//TODO: Replace opponent discards/gains
 
 // Player cards
 	//TODO: Find a better way to replace cards in discard
