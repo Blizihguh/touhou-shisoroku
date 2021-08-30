@@ -19,9 +19,6 @@
 	visibility: hidden;
 }
 
-/*TODO: This makes facedown cards invisible */
-/*TODO: Something makes card stack numbers invisible*/
-/*TODO: Something is making playable cards highlight green on hover??? */
 .full-card {
 	visibility: hidden;
 	box-shadow: none;
@@ -38,4 +35,41 @@
 	border: 16px solid rbga(0, 0, 0, 1);
 	border-style: solid;
 	border-radius: 16px !important;
+}
+
+/* Display card counters */
+card-counter {
+	visibility: visible !important;
+}
+
+/* Display facedown cards */
+/* Hero deck */
+.hero-info > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) {
+	background-size: contain;
+	visibility: visible !important;
+}
+
+/* Opponent deck */
+.opponent-deck > .full-card-template {
+	background-size: contain;
+	visibility: visible !important;
+}
+
+/* Opponent hand */
+.opponent-hand > div:nth-child(1) > .full-card-template {
+	background-size: contain;
+	visibility: visible !important;
+}
+
+/* Display Xs when appropriate */
+.yellow-cross {
+	visibility: visible !important;
+}
+
+.red-cross {
+	visibility: visible !important;
+}
+
+/* Card highlighting */
+.action-layer .play-layer {
 }
