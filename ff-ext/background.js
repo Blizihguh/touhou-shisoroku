@@ -19,12 +19,6 @@ function get_new_full_art(url) {
 	if (url == "https://dominion.games/images/cards/templates/back.jpg") {
 		return "https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/back.png";
 	}
-	else if (url == "https://dominion.games/images/cards/art/prosperity/mini-platinum.jpg") { // For some reason plat and colony are stored as png instead of jpg ._.
-		return "https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/prosperity/mini-platinum.png";
-	}
-	else if (url == "https://dominion.games/images/cards/art/prosperity/mini-colony.jpg") {
-		return "https://raw.githubusercontent.com/Blizihguh/touhou-shisoroku/master/img/prosperity/mini-colony.png";
-	}
 }
 
 function redirect(requestDetails) {
