@@ -5,5 +5,5 @@ A browser extension to replace the card art on [dominion.games](https://dominion
 This extension is designed for Firefox, but I think it works with Chromium browsers as well. If it doesn't, it should be a pretty easy port. The assets are all in the repository in fullsize and cropped versions; all the extension does is intercept the loading of card assets and replace them with new ones, plus some graphical changes to make the app work with fullsize art.
 
 At the moment, the project is a work in progress, but it works enough to use (and all officially-released Shisoroku cards are implemented, including the ones that aren't available on dominion.games). For now, there are two ways to run the extension in Firefox:
-* [Install it as a temporary application](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+* [Install it as a temporary extension](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
 * [Package it and install it from an .xpi](https://extensionworkshop.com/documentation/publish/package-your-extension/)
