@@ -18,3 +18,5 @@ function replace_mini_art() {
 
 /*TODO: Something is making playable cards highlight green on hover??? */
 /*TODO: Infinite load on undo */
+//TODO: Basic cards, Nobles, Haggler, City, Governor broken in hand + right click
+//TODO: Card backs broken
